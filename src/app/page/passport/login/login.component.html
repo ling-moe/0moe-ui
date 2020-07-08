@@ -1,0 +1,31 @@
+<div class="container">
+  <div class="main">
+    <share-ui-header></share-ui-header>
+    <nz-tabset [nzSelectedIndex]="activeTab" [nzTabBarStyle]="{ textAlign: 'center', borderBottom: 'unset' }">
+      <nz-tab>
+        <nz-alert *ngIf="loginFlag" nzType="error" nzShowIcon style="margin-bottom: 24px;"
+                  nzMessage="errorMsg"></nz-alert>
+        <form nz-form [formGroup]="form" class="user-layout-login" (ngSubmit)="userLogin($event)">
+          <nz-form-item>
+            <nz-form-control nzErrorTip="请输入用户名!">
+              <nz-input-group nzPrefixIcon="user">
+                <input type="text" nz-input formControlName="username" placeholder="Username" [nzSize]="'large'"/>
+              </nz-input-group>
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-control nzErrorTip="请输入密码!">
+              <nz-input-group nzPrefixIcon="lock">
+                <input type="password" nz-input formControlName="password" placeholder="Password" [nzSize]="'large'"/>
+              </nz-input-group>
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <button type="submit" nz-button class="login-button" [nzType]="'primary'" [nzSize]="'large'">登录</button>
+          </nz-form-item>
+        </form>
+      </nz-tab>
+    </nz-tabset>
+    <share-ui-footer></share-ui-footer>
+  </div>
+</div>

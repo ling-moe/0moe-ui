@@ -1,16 +1,16 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import {WelcomeModule} from './welcome/welcome.module';
-
-
+import {WorkspaceModule} from './workspace/workspace.module';
+import {SystemManageModule} from './system-manage/system-manage.module';
 
 @NgModule({
   declarations: [],
   imports: [
-    WelcomeModule
+    WorkspaceModule,
+    SystemManageModule
   ],
   exports: [
-    WelcomeModule
+    WorkspaceModule,
+    SystemManageModule
   ]
 })
 export class PageModule { }

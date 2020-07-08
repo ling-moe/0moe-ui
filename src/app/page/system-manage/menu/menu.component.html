@@ -1,0 +1,74 @@
+<nz-card [nzBordered]="false">
+  <div class="table-page-search-wrapper">
+    <form nz-form [formGroup]="queryFrom">
+      <nz-row [nzGutter]="24">
+        <nz-col [nzMd]="6" [nzSm]="24">
+          <nz-form-item>
+            <nz-form-label [nzSm]="6" [nzXs]="24">菜单编码</nz-form-label>
+            <nz-form-control [nzSm]="14" [nzXs]="24">
+              <input nz-input formControlName="menuCode"/>
+            </nz-form-control>
+          </nz-form-item>
+        </nz-col>
+        <nz-col [nzMd]="6" [nzSm]="24">
+          <nz-form-item>
+            <nz-form-label [nzSm]="6" [nzXs]="24">菜单名称</nz-form-label>
+            <nz-form-control [nzSm]="14" [nzXs]="24">
+              <input nz-input formControlName="menuName"/>
+            </nz-form-control>
+          </nz-form-item>
+        </nz-col>
+        <nz-col [nzMd]="1" [nzSm]="24" nzOffset="6">
+            <button nz-button nzType="primary" (click)="queryMenu($event)">查询</button>
+        </nz-col>
+        <nz-col [nzMd]="1" [nzSm]="24">
+          <button nz-button nzType="default" (click)="resetQuery()">重置</button>
+        </nz-col>
+      </nz-row>
+    </form>
+  </div>
+  <nz-table [nzLoading]="loading" [nzData]="menuList" [nzShowPagination]="false" #base>
+    <thead>
+      <tr>
+        <th>菜单名称</th>
+        <th>快捷方式</th>
+        <th>菜单编码</th>
+        <th>类型</th>
+        <th>序号</th>
+        <th>备注</th>
+        <th>状态</th>
+        <th>操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngFor="let group of base.data">
+        <ng-container *ngFor="let item of mapOfTree[group.id]">
+          <tr *ngIf="(item.parent && item.parent.expand) || !item.parent">
+            <td [nzIndentSize]="item.level! * 20"
+                [nzShowExpand]="childrenFLag(item)"
+                [(nzExpand)]="item.expand"
+                (nzExpandChange)="collapse(mapOfTree[group.id], item, $event)">{{item.name}}</td>
+            <td >{{item.shortcut}}</td>
+            <td >{{item.menuCode}}</td>
+            <td>
+              <nz-tag *ngIf="item.menuType === 'R'" [nzColor]="'blue'">根目录</nz-tag>
+              <nz-tag *ngIf="item.menuType === 'D'" [nzColor]="'green'">菜单目录</nz-tag>
+              <nz-tag *ngIf="item.menuType === 'M'" [nzColor]="'orange'">菜单</nz-tag>
+            </td>
+            <td>{{item.orderNum}}</td>
+            <td>{{item.remark}}</td>
+            <td>
+              <nz-badge *ngIf="item.enabledFlag === true" [nzColor]="'green'" [nzText]="'启用'"></nz-badge>
+              <nz-badge *ngIf="item.enabledFlag === false" [nzColor]="'red'" [nzText]="'禁用'"></nz-badge>
+            </td>
+            <td>
+              <a nz-button nzType="link">启用</a>
+              <a nz-button nzType="link">新建</a>
+              <a nz-button nzType="link">编辑</a>
+            </td>
+          </tr>
+        </ng-container>
+      </ng-container>
+    </tbody>
+  </nz-table>
+</nz-card>

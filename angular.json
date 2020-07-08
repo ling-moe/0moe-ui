@@ -65,17 +65,30 @@
                   "maximumError": "10kb"
                 }
               ]
+            },
+            "hmr": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.hmr.ts"
+                }
+              ]
             }
           }
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "lingmoe-ui:build"
+            "browserTarget": "lingmoe-ui:build",
+            "proxyConfig": "proxyconfig.json"
           },
           "configurations": {
             "production": {
               "browserTarget": "lingmoe-ui:build:production"
+            },
+            "hmr": {
+              "browserTarget": "lingmoe-ui:build:hmr",
+              "hmr": true
             }
           }
         },
