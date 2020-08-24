@@ -143,5 +143,8 @@
       }
     }
   },
-  "defaultProject": "lingmoe-ui"
+  "defaultProject": "lingmoe-ui",
+  "cli": {
+    "analytics": false
+  }
 }
